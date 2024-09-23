@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage ('SCM Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/asifkhazi/final-project.git'
+                git branch: 'main', url: 'https://github.com/Nithishkumar0064/final-project.git'
             }
         }
 
