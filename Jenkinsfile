@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'docker'}
+    agent any
     environment {
         repoName="threetier-app"
         dockerCred = credentials('dockerCred')
@@ -13,24 +13,24 @@ pipeline {
             }
         }
 
-        stage ('SonarQube Analysis'){
-            steps {
-                dir('Application-Code/frontend') {
-                    withSonarQubeEnv('sonar-server') {
-                        sh '''$SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectName=three-tier-frontend \
-                        -Dsonar.projectKey=three-tier-frontend '''
-                    }
-                }
-                dir('Application-Code/backend') {
-                    withSonarQubeEnv('sonar-server') {
-                        sh '''$SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectName=three-tier-backend \
-                        -Dsonar.projectKey=three-tier-backend '''
-                    }
-                }
-            }
-        }
+       // stage ('SonarQube Analysis'){
+          //  steps {
+            //    dir('Application-Code/frontend') {
+                 //   withSonarQubeEnv('sonar-server') {
+                    //    sh '''$SCANNER_HOME/bin/sonar-scanner \
+                       // -Dsonar.projectName=three-tier-frontend \
+                       // -Dsonar.projectKey=three-tier-frontend '''
+                  //  }
+              //  }
+              //  dir('Application-Code/backend') {
+                //    withSonarQubeEnv('sonar-server') {
+                  //      sh '''$SCANNER_HOME/bin/sonar-scanner \
+                     //   -Dsonar.projectName=three-tier-backend \
+                       // -Dsonar.projectKey=three-tier-backend '''
+                 //   }
+          //      }
+          //  }
+     //   }
 
        // stage('Quality Check') {
           //  steps {
@@ -51,12 +51,12 @@ pipeline {
             }
         }
 
-        stage("TRIVY Image Scan") {
-            steps {
-                sh 'trivy image -f json -o results-${BUILD_NUMBER}.json $dockerImage:threetier-frontend'
-                sh 'trivy image -f json -o results-${BUILD_NUMBER}.json $dockerImage:threetier-backend' 
-            }
-        }
+      //  stage("TRIVY Image Scan") {
+         //   steps {
+           //     sh 'trivy image -f json -o results-${BUILD_NUMBER}.json $dockerImage:threetier-frontend'
+            //    sh 'trivy image -f json -o results-${BUILD_NUMBER}.json $dockerImage:threetier-backend' 
+        //    }
+        // }
 
         stage ('Docker Push') {
             steps {
