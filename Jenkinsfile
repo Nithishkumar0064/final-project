@@ -4,7 +4,7 @@ pipeline {
         repoName="threetier-app"
         dockerhubCred = credentials('dockerhubCred')
         dockerImage="$dockerhubCred_USR/$repoName"
-        SCANNER_HOME= tool 'sonar-scanner'
+       // SCANNER_HOME= tool 'sonar-scanner'
     }
     stages {
         stage ('SCM Checkout') {
