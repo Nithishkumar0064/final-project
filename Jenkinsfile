@@ -71,7 +71,7 @@ pipeline {
 
         stage ('Kubernetes-Deploy') {
             steps {
-                sh 'helm install fronend helm/fronend/ --namespace three-tier --create-namespace'
+                sh 'helm install frontend helm/frontend/ --namespace three-tier --create-namespace'
                 sh 'helm install backend helm/backend/ --namespace three-tier --create-namespace'
                 sh 'helm install database helm/database/ --namespace three-tier --create-namespace'
             }
