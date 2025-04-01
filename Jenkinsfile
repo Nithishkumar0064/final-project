@@ -2,8 +2,8 @@ pipeline {
     agent any
     environment {
         repoName="threetier-app"
-        dockerCred = credentials('dockerCred')
-        dockerImage="$dockerCred_USR/$repoName"
+        dockerhubCred = credentials('dockerhubCred')
+        dockerImage="$dockerhubCred_USR/$repoName"
         SCANNER_HOME= tool 'sonar-scanner'
     }
     stages {
@@ -61,7 +61,7 @@ pipeline {
         stage ('Docker Push') {
             steps {
                 sh '''
-                    echo "$dockerCred_PSW" | docker login --username $dockerCred_USR --password-stdin
+                    echo "$dockerhubCred_PSW" | docker login --username $dockerhubCred_USR --password-stdin
                     docker push $dockerImage:threetier-frontend
                     docker push $dockerImage:threetier-backend
                     docker image prune -a
